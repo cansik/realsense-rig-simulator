@@ -18,6 +18,9 @@ void setup()
 
   rig = new CameraRig(4);
   rig.initRig();
+
+  // so the frustums are transparent
+  hint(DISABLE_DEPTH_TEST);
 }
 
 void draw()
@@ -29,37 +32,47 @@ void draw()
 public PShape createCameraFrustum(float hAngle, float vAngle, float near, float far)
 {
   PShape f = createShape();
-  f.beginShape();
+  f.beginShape(QUADS);
 
   // calculate positions by polar coordinates
   PVector np = new PVector(near * cos(radians(hAngle) / 2), near * sin(radians(vAngle) / 2));
   PVector fp = new PVector(far * cos(radians(hAngle) / 2), far * sin(radians(vAngle) / 2));
 
-  // create two rects
-
-  // near rect
-  f.vertex(np.x, np.y, near);
-  f.vertex(np.x, -np.y, near);
+  // near rect  
   f.vertex(-np.x, -np.y, near);
-  f.vertex(-np.x, np.y, near);
+  f.vertex(np.x, -np.y, near);
   f.vertex(np.x, np.y, near);
+  f.vertex(-np.x, np.y, near);
 
+  // left rect
+  f.vertex(np.x, np.y, near);
+  f.vertex(fp.x, fp.y, far);
+  f.vertex(fp.x, -fp.y, far);
+  f.vertex(np.x, -np.y, near);
 
   // far rect
-  f.vertex(fp.x, fp.y, far);
-  f.vertex(fp.x, -fp.y, far);
   f.vertex(-fp.x, -fp.y, far);
-  f.vertex(-fp.x, fp.y, far);
-  f.vertex(fp.x, fp.y, far);
-
-  // add connections
-  f.vertex(np.x, np.y, near);
-  f.vertex(np.x, -np.y, near);
   f.vertex(fp.x, -fp.y, far);
+  f.vertex(fp.x, fp.y, far);
+  f.vertex(-fp.x, fp.y, far);
+
+  // right rect
   f.vertex(-fp.x, -fp.y, far);
   f.vertex(-np.x, -np.y, near);
   f.vertex(-np.x, np.y, near);
   f.vertex(-fp.x, fp.y, far);
+
+  // top rect
+  f.vertex(np.x, np.y, near);
+  f.vertex(-np.x, np.y, near);
+  f.vertex(-fp.x, fp.y, far);
+  f.vertex(fp.x, fp.y, far);
+
+  //bottom rect
+  f.vertex(-fp.x, -fp.y, far);
+  f.vertex(fp.x, -fp.y, far);
+  f.vertex(np.x, -np.y, near);
+  f.vertex(-np.x, -np.y, near);
 
   f.endShape();
   f.disableStyle();
