@@ -1,2 +1,4 @@
-# realsense-rig-simulator
-A simpel rig simulator for D435 cameras.
+# Realsense Rig Simulator
+A simple rig simulator for D435 cameras.
+
+![Rig Example](readme/rig_example.png)

@@ -16,20 +16,13 @@ void setup()
   // setting clipping pane far
   perspective(PI/3.0, (float)width/height, 1, 100000);
 
-  rig = new CameraRig(1);
+  rig = new CameraRig(4);
   rig.initRig();
 }
 
 void draw()
 {
   background(255);
-
-  noFill();
-  stroke(0);
-
-  sphereDetail(8);
-  sphere(5);
-
   rig.render(g);
 }
 

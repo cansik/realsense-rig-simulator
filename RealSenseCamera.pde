@@ -15,7 +15,7 @@ class RealSenseCamera
   float verticalDepthFieldOfView = 58;
 
   float minRange = 105;
-  float maxRange = 4 * 1000;
+  float maxRange = 2 * 1000;
 
   // frustums
   PShape depthFrustum = createCameraFrustum(horizontalDepthFieldOfView, verticalDepthFieldOfView, minRange, maxRange);
@@ -26,12 +26,10 @@ class RealSenseCamera
   color lensColor = color(50, 50, 50);
   color ventColor = color(10, 10, 10);
 
-  color depthFrustumColor = color(0, 13, 200);
-  float depthFrustumWeight = 2;
+  color depthFrustumColor = color(255, 215, 0);
+  float depthFrustumWeight = 1;
 
   // position
-  float rotation = 0;
-  float distance = 0;
   boolean flipped = false;
 
   public RealSenseCamera()
@@ -41,9 +39,6 @@ class RealSenseCamera
   void render(PGraphics g)
   {
     pushMatrix();
-
-    g.rotateX(radians(rotation));
-    g.translate(distance, 0);
 
     if (flipped)
     {
@@ -63,6 +58,7 @@ class RealSenseCamera
     g.rotateZ(radians(90));
 
     g.noFill();
+    g.fill(depthFrustumColor, 50);
     g.stroke(depthFrustumColor);
     g.strokeWeight(depthFrustumWeight);
 
