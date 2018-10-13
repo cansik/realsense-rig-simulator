@@ -1,13 +1,22 @@
 class CameraRig
 {
   // rig specifics
-  float rigWidth = 2000;
-  float rigLength = 2000;
-  float rigHeight = 2000;
+  float rigWidth = 3000;
+  float rigLength = 3000;
+  float rigHeight = 3000;
 
   // design
   color rigColor = color(20, 20, 20);
   float rigWeight = 2f; 
+
+  color[] distinctColors = new color[] {
+    color(230, 25, 75), 
+    color(60, 180, 75), 
+    color(255, 255, 25), 
+    color(0, 130, 200), 
+    color(245, 130, 48), 
+    color(70, 240, 240)
+  };
 
   RealSenseCamera[] cams;
 
@@ -22,6 +31,8 @@ class CameraRig
     {
       RealSenseCamera rs = new RealSenseCamera();
       rs.flipped = true;
+      rs.isVertical = true;
+      rs.depthFrustumColor = distinctColors[i % distinctColors.length];
       cams[i] = rs;
     }
   }

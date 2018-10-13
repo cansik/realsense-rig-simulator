@@ -21,12 +21,32 @@ void setup()
 
   // so the frustums are transparent
   hint(DISABLE_DEPTH_TEST);
+
+  setupUI();
 }
 
 void draw()
 {
   background(255);
+
+  // render human
+  noStroke();
+  fill(20, 20, 20, 100);
+  box(400, 200, 1800);
+
+  // render rig
   rig.render(g);
+
+  // show information
+  cam.beginHUD();
+  cp5.draw();
+
+  fill(255);
+  textSize(14);
+  String infoText = "FPS: " + frameRate;
+
+  text(infoText, 20, height - 40);
+  cam.endHUD();
 }
 
 public PShape createCameraFrustum(float hAngle, float vAngle, float near, float far)
